@@ -1,0 +1,5 @@
+{
+  "name": "Neon Snake Retro",
+  "description": "A retro snake game with neon aesthetics, smooth animations, and a built-in music player.",
+  "requestFramePermissions": []
+}

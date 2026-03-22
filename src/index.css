@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "VT323", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Press Start 2P", ui-monospace, SFMono-Regular, monospace;
+  --color-neon-cyan: #00ffff;
+  --color-neon-magenta: #ff00ff;
+  --color-glitch-red: #ff0000;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-[#00ffff] antialiased overflow-x-hidden;
+    background-image: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: auto;
+  }
+
+  /* Scanline effect */
+  body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    animation: scanline 6s linear infinite;
+  }
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  80% { bottom: 100%; }
+  100% { bottom: 0%; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); }
+  20% { clip: rect(62px, 9999px, 42px, 0); }
+  40% { clip: rect(16px, 9999px, 78px, 0); }
+  60% { clip: rect(87px, 9999px, 12px, 0); }
+  80% { clip: rect(53px, 9999px, 66px, 0); }
+  100% { clip: rect(24px, 9999px, 85px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(67px, 9999px, 34px, 0); }
+  20% { clip: rect(12px, 9999px, 87px, 0); }
+  40% { clip: rect(78px, 9999px, 16px, 0); }
+  60% { clip: rect(42px, 9999px, 62px, 0); }
+  80% { clip: rect(94px, 9999px, 31px, 0); }
+  100% { clip: rect(85px, 9999px, 24px, 0); }
+}
+
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+.neon-border {
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 10px #00ffff, inset 0 0 10px #00ffff;
+}
+
+.neon-border-magenta {
+  border: 2px solid #ff00ff;
+  box-shadow: 0 0 10px #ff00ff, inset 0 0 10px #ff00ff;
+}
+
+.glitch-hover:hover {
+  animation: glitch 0.2s infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ffff;
+  border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff00ff;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s linear infinite;
+}
+
+.glow-blue { filter: drop-shadow(0 0 8px #00ffff); }
+.glow-pink { filter: drop-shadow(0 0 8px #ff00ff); }
+.glow-green { filter: drop-shadow(0 0 8px #39FF14); }
